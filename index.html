@@ -56,6 +56,17 @@ color:#111;
 font-weight:bold;
 cursor:pointer;
 }
+.delete-button{
+display:inline-block;
+margin-left:8px;
+padding:12px 18px;
+border-radius:9px;
+background:#292929;
+color:#fff;
+font-weight:bold;
+cursor:pointer;
+border:0;
+}
 .file-name{
 margin-top:12px;
 color:#888;
@@ -126,6 +137,10 @@ h1{font-size:24px;}
 RP ZIPを選択
 </label>
 
+<button class="delete-button" id="rpDelete">
+削除
+</button>
+
 <input id="rpFile" type="file" accept=".zip,application/zip">
 
 <div class="file-name" id="rpName">
@@ -141,6 +156,10 @@ RP ZIPを選択
 <label class="upload-button" for="bpFile">
 BP ZIPを選択
 </label>
+
+<button class="delete-button" id="bpDelete">
+削除
+</button>
 
 <input id="bpFile" type="file" accept=".zip,application/zip">
 
@@ -167,6 +186,8 @@ const rpFile=document.getElementById("rpFile");
 const bpFile=document.getElementById("bpFile");
 const rpName=document.getElementById("rpName");
 const bpName=document.getElementById("bpName");
+const rpDelete=document.getElementById("rpDelete");
+const bpDelete=document.getElementById("bpDelete");
 const generate=document.getElementById("generate");
 const status=document.getElementById("status");
 
@@ -177,6 +198,18 @@ rpFile.onchange=()=>{
 
 bpFile.onchange=()=>{
   bpName.textContent=bpFile.files.length?bpFile.files[0].name:"未選択";
+  updateButton();
+};
+
+rpDelete.onclick=()=>{
+  rpFile.value="";
+  rpName.textContent="未選択";
+  updateButton();
+};
+
+bpDelete.onclick=()=>{
+  bpFile.value="";
+  bpName.textContent="未選択";
   updateButton();
 };
 
