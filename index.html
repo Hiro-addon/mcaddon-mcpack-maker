@@ -22,34 +22,41 @@
 
 <style>
 *{box-sizing:border-box;}
+
 body{
 margin:0;
 background:#111;
 color:#fff;
 font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
 }
+
 .container{
 max-width:900px;
 margin:auto;
 padding:24px 16px 50px;
 }
+
 .page{
 display:none;
 }
+
 .page.active{
 display:block;
 }
+
 .header{
 display:flex;
 align-items:center;
 justify-content:space-between;
 margin-bottom:28px;
 }
+
 .header-left{
 display:flex;
 align-items:center;
 gap:12px;
 }
+
 .back{
 width:42px;
 height:42px;
@@ -60,9 +67,11 @@ color:#fff;
 font-size:22px;
 cursor:pointer;
 }
+
 .menu-wrap{
 position:relative;
 }
+
 .menu-button{
 width:42px;
 height:42px;
@@ -73,6 +82,7 @@ color:#fff;
 font-size:20px;
 cursor:pointer;
 }
+
 .menu{
 position:absolute;
 right:0;
@@ -86,9 +96,11 @@ z-index:100;
 box-shadow:0 10px 30px #0008;
 display:none;
 }
+
 .menu.active{
 display:block;
 }
+
 .menu button{
 width:100%;
 padding:12px;
@@ -100,23 +112,29 @@ text-align:left;
 font-size:14px;
 cursor:pointer;
 }
+
 .menu button:hover{
 background:#292929;
 }
+
 h1{
 margin:0;
 font-size:28px;
 }
+
 .subtitle{
 margin:6px 0 28px;
 color:#888;
 }
+
 .home-title{
 margin-bottom:8px;
 }
+
 .home-subtitle{
 margin-bottom:28px;
 }
+
 .section{
 background:#1a1a1a;
 border:1px solid #292929;
@@ -124,15 +142,18 @@ border-radius:14px;
 padding:18px;
 margin-bottom:16px;
 }
+
 .section h2{
 margin:0 0 16px;
 font-size:18px;
 }
+
 .tool-grid{
 display:grid;
 grid-template-columns:repeat(2,1fr);
 gap:12px;
 }
+
 .tool-card{
 padding:20px;
 border:1px solid #333;
@@ -142,17 +163,21 @@ color:#fff;
 text-align:left;
 cursor:pointer;
 }
+
 .tool-card:hover{
 background:#1c1c1c;
 }
+
 .tool-icon{
 font-size:28px;
 margin-bottom:12px;
 }
+
 .tool-name{
 font-size:17px;
 font-weight:bold;
 }
+
 .tool-description{
 margin-top:6px;
 color:#888;
@@ -166,6 +191,7 @@ margin-bottom:7px;
 color:#bbb;
 font-size:14px;
 }
+
 input{
 width:100%;
 padding:12px 14px;
@@ -176,25 +202,32 @@ color:#fff;
 outline:none;
 font-size:15px;
 }
+
 input:focus{
 border-color:#666;
 }
+
 input::placeholder{
 color:#777;
 opacity:.55;
 }
+
 .field{
 margin-bottom:15px;
 }
+
 .field:last-child{
 margin-bottom:0;
 }
+
 .choice{
 display:grid;
 grid-template-columns:repeat(3,1fr);
 gap:10px;
 }
-.choice button,.script-choice button{
+
+.choice button,
+.script-choice button{
 padding:13px 10px;
 border:1px solid #333;
 border-radius:10px;
@@ -203,17 +236,21 @@ color:#aaa;
 cursor:pointer;
 font-size:14px;
 }
-.choice button.active,.script-choice button.active{
+
+.choice button.active,
+.script-choice button.active{
 background:#fff;
 color:#111;
 border-color:#fff;
 }
+
 .script-choice{
 display:grid;
 grid-template-columns:repeat(2,1fr);
 gap:10px;
 margin-bottom:16px;
 }
+
 .generate{
 width:100%;
 padding:14px;
@@ -225,13 +262,16 @@ font-size:16px;
 font-weight:bold;
 cursor:pointer;
 }
+
 .generate:disabled{
 opacity:.4;
 cursor:not-allowed;
 }
+
 .result{
 margin-top:16px;
 }
+
 .result-box{
 background:#0d0d0d;
 border:1px solid #292929;
@@ -239,6 +279,7 @@ border-radius:12px;
 overflow:hidden;
 margin-bottom:16px;
 }
+
 .result-title{
 display:flex;
 justify-content:space-between;
@@ -247,6 +288,7 @@ padding:12px 14px;
 border-bottom:1px solid #292929;
 font-weight:bold;
 }
+
 .copy-btn{
 padding:7px 12px;
 border:1px solid #444;
@@ -256,9 +298,11 @@ color:#fff;
 cursor:pointer;
 font-size:12px;
 }
+
 .copy-btn:hover{
 background:#252525;
 }
+
 pre{
 margin:0;
 padding:15px;
@@ -269,6 +313,7 @@ color:#ddd;
 font-size:13px;
 line-height:1.6;
 }
+
 .hidden{
 display:none;
 }
@@ -280,9 +325,11 @@ padding:20px;
 text-align:center;
 background:#111;
 }
+
 .upload input{
 display:none;
 }
+
 .upload-button{
 display:inline-block;
 padding:12px 18px;
@@ -292,6 +339,7 @@ color:#111;
 font-weight:bold;
 cursor:pointer;
 }
+
 .delete-button{
 display:inline-block;
 margin-left:8px;
@@ -303,12 +351,14 @@ font-weight:bold;
 cursor:pointer;
 border:0;
 }
+
 .file-name{
 margin-top:12px;
 color:#888;
 font-size:13px;
 word-break:break-all;
 }
+
 .status{
 margin-top:16px;
 background:#0d0d0d;
@@ -318,72 +368,155 @@ padding:15px;
 font-size:14px;
 line-height:1.7;
 }
+
 .success{
 color:#fff;
 }
+
 .error{
 color:#ff7777;
 }
 
+/* ページ切り替えローダー */
+
+.page-loader{
+position:fixed;
+inset:0;
+background:#111;
+display:flex;
+align-items:center;
+justify-content:center;
+z-index:9999;
+opacity:0;
+visibility:hidden;
+transition:opacity .12s ease;
+}
+
+.page-loader.active{
+opacity:1;
+visibility:visible;
+}
+
+.loader-spinner{
+width:42px;
+height:42px;
+border:4px solid #292929;
+border-top-color:#fff;
+border-radius:50%;
+animation:loader-spin .65s linear infinite;
+}
+
+@keyframes loader-spin{
+to{
+transform:rotate(360deg);
+}
+}
+
 @media(max-width:650px){
+
 .tool-grid{
 grid-template-columns:1fr;
 }
+
 .choice{
 grid-template-columns:1fr;
 }
+
 .script-choice{
 grid-template-columns:1fr;
 }
+
 h1{
 font-size:24px;
 }
+
 }
 </style>
 </head>
 
 <body>
 
+<div class="page-loader" id="pageLoader">
+<div class="loader-spinner"></div>
+</div>
+
 <div class="container">
 
 <div class="menu-wrap" style="position:fixed;top:18px;right:18px;z-index:200;">
-<button class="menu-button" id="menuButton">•••</button>
+
+<button class="menu-button" id="menuButton">
+•••
+</button>
 
 <div class="menu" id="menu">
-<button onclick="openPage('home')">ホーム</button>
-<button onclick="openPage('manifest')">Manifest Generator</button>
-<button onclick="openPage('pack')">MC Pack Builder</button>
+
+<button onclick="openPage('home')">
+ホーム
+</button>
+
+<button onclick="openPage('manifest')">
+Manifest Generator
+</button>
+
+<button onclick="openPage('pack')">
+MC Pack Builder
+</button>
+
 </div>
 </div>
 
 <div class="page active" id="home">
 
 <div style="margin-top:20px;">
-<h1 class="home-title">Hiro Addon Tools</h1>
+
+<h1 class="home-title">
+Hiro Addon Tools
+</h1>
+
 <div class="subtitle home-subtitle">
 Minecraft Bedrock Addon Tools
 </div>
+
 </div>
 
 <div class="section">
-<h2>機能一覧</h2>
+
+<h2>
+機能一覧
+</h2>
 
 <div class="tool-grid">
 
 <button class="tool-card" onclick="openPage('manifest')">
-<div class="tool-icon">📄</div>
-<div class="tool-name">Manifest Generator</div>
+
+<div class="tool-icon">
+📄
+</div>
+
+<div class="tool-name">
+Manifest Generator
+</div>
+
 <div class="tool-description">
 Minecraft Bedrockのmanifest.jsonを簡単に生成
 </div>
+
 </button>
 
 <button class="tool-card" onclick="openPage('pack')">
-<div class="tool-icon">📦</div>
-<div class="tool-name">MC Pack Builder</div>
+
+<div class="tool-icon">
+📦
+</div>
+
+<div class="tool-name">
+MC Pack Builder
+</div>
+
 <div class="tool-description">
 ZIPからmcpack / mcaddonを自動生成
 </div>
+
 </button>
 
 </div>
@@ -394,10 +527,19 @@ ZIPからmcpack / mcaddonを自動生成
 <div class="page" id="manifest">
 
 <div class="header">
+
 <div class="header-left">
-<button class="back" onclick="openPage('home')">←</button>
-<h1>Manifest Generator</h1>
+
+<button class="back" onclick="openPage('home')">
+←
+</button>
+
+<h1>
+Manifest Generator
+</h1>
+
 </div>
+
 </div>
 
 <div class="subtitle">
@@ -405,79 +547,152 @@ Minecraft Bedrock Addon Manifest Generator
 </div>
 
 <div class="section">
-<h2>パックタイプ</h2>
+
+<h2>
+パックタイプ
+</h2>
 
 <div class="choice">
-<button id="bpBtn" class="active">ビヘイビアパック</button>
-<button id="rpBtn">リソースパック</button>
-<button id="bothBtn">BP ＋ RP</button>
+
+<button id="bpBtn" class="active">
+ビヘイビアパック
+</button>
+
+<button id="rpBtn">
+リソースパック
+</button>
+
+<button id="bothBtn">
+BP ＋ RP
+</button>
+
 </div>
 </div>
 
 <div class="section">
-<h2>基本設定</h2>
+
+<h2>
+基本設定
+</h2>
 
 <div class="field">
-<label>アドオン名</label>
+
+<label>
+アドオン名
+</label>
+
 <input id="name" type="text" placeholder="アドオン名">
+
 </div>
 
 <div class="field">
-<label>説明文</label>
+
+<label>
+説明文
+</label>
+
 <input id="description" type="text" placeholder="アドオン説明文">
+
 </div>
 
 <div class="field">
-<label>アドオンのバージョン</label>
+
+<label>
+アドオンのバージョン
+</label>
+
 <input id="version" type="text" placeholder="1.0.0">
+
 </div>
 
 <div class="field">
-<label>最低Minecraftバージョン</label>
+
+<label>
+最低Minecraftバージョン
+</label>
+
 <input id="engine" type="text" placeholder="1.20.0">
+
 </div>
 
 </div>
 
 <div class="section" id="scriptSection">
 
-<h2>スクリプト</h2>
+<h2>
+スクリプト
+</h2>
 
 <div class="script-choice">
-<button id="scriptOffBtn" class="active">使用しない</button>
-<button id="scriptOnBtn">使用する</button>
+
+<button id="scriptOffBtn" class="active">
+使用しない
+</button>
+
+<button id="scriptOnBtn">
+使用する
+</button>
+
 </div>
 
 <div id="scriptSettings" class="hidden">
 
 <div class="field">
-<label>エントリーファイル</label>
+
+<label>
+エントリーファイル
+</label>
+
 <input id="entry" type="text" placeholder="main.js">
+
 </div>
 
 <div class="field">
-<label>@minecraft/server バージョン</label>
+
+<label>
+@microsoft/server バージョン
+</label>
+
 <input id="serverVersion" type="text" placeholder="2.7.0">
+
 </div>
 
 <div class="field">
-<label>@minecraft/server-ui</label>
+
+<label>
+@microsoft/server-ui
+</label>
+
 <div style="display:flex;align-items:center;gap:10px;">
+
 <input id="uiCheck" type="checkbox" style="width:18px;height:18px;">
-<span style="color:#aaa;font-size:14px;">使用する</span>
+
+<span style="color:#aaa;font-size:14px;">
+使用する
+</span>
+
 </div>
 </div>
 
 <div class="field hidden" id="uiVersionField">
-<label>@minecraft/server-ui バージョン</label>
+
+<label>
+@microsoft/server-ui バージョン
+</label>
+
 <input id="uiVersion" type="text" placeholder="1.1.0">
+
 </div>
 
 </div>
 </div>
 
 <div class="section">
-<button class="generate" id="generateManifest">Manifestを生成</button>
+
+<button class="generate" id="generateManifest">
+Manifestを生成
+</button>
+
 </div>
 
 <div class="result" id="result"></div>
@@ -487,9 +702,17 @@ Minecraft Bedrock Addon Manifest Generator
 <div class="page" id="pack">
 
 <div class="header">
+
 <div class="header-left">
-<button class="back" onclick="openPage('home')">←</button>
-<h1>MC Pack Builder</h1>
+
+<button class="back" onclick="openPage('home')">
+←
+</button>
+
+<h1>
+MC Pack Builder
+</h1>
+
 </div>
 </div>
 
@@ -498,9 +721,13 @@ Minecraft Bedrock Pack Generator
 </div>
 
 <div class="section">
-<h2>ビヘイビアパック</h2>
+
+<h2>
+ビヘイビアパック
+</h2>
 
 <div class="upload">
+
 <label class="upload-button" for="bpFile">
 BP ZIPを選択
 </label>
@@ -514,13 +741,18 @@ BP ZIPを選択
 <div class="file-name" id="bpName">
 未選択
 </div>
+
 </div>
 </div>
 
 <div class="section">
-<h2>リソースパック</h2>
+
+<h2>
+リソースパック
+</h2>
 
 <div class="upload">
+
 <label class="upload-button" for="rpFile">
 RP ZIPを選択
 </label>
@@ -534,13 +766,16 @@ RP ZIPを選択
 <div class="file-name" id="rpName">
 未選択
 </div>
+
 </div>
 </div>
 
 <div class="section">
+
 <button class="generate" id="generatePack">
 パックを生成
 </button>
+
 </div>
 
 <div class="status" id="status">
@@ -555,12 +790,34 @@ RPまたはBPのZIPを選択してください。
 
 const menuButton=document.getElementById("menuButton");
 const menu=document.getElementById("menu");
+const pageLoader=document.getElementById("pageLoader");
 
 menuButton.onclick=()=>{
 menu.classList.toggle("active");
 };
 
+let pageLoading=false;
+
 function openPage(page){
+
+if(pageLoading){
+return;
+}
+
+const current=document.querySelector(".page.active");
+
+if(current && current.id===page){
+menu.classList.remove("active");
+return;
+}
+
+pageLoading=true;
+
+menu.classList.remove("active");
+
+pageLoader.classList.add("active");
+
+setTimeout(()=>{
 
 document.querySelectorAll(".page").forEach(p=>{
 p.classList.remove("active");
@@ -568,18 +825,31 @@ p.classList.remove("active");
 
 document.getElementById(page).classList.add("active");
 
-menu.classList.remove("active");
-
 window.scrollTo({
 top:0,
-behavior:"smooth"
+behavior:"instant"
 });
+
+setTimeout(()=>{
+
+pageLoader.classList.remove("active");
+
+setTimeout(()=>{
+pageLoading=false;
+},120);
+
+},300);
+
+},120);
+
 }
 
 document.addEventListener("click",e=>{
+
 if(!e.target.closest(".menu-wrap")){
 menu.classList.remove("active");
 }
+
 });
 
 let packType="bp";
@@ -598,6 +868,7 @@ const uiCheck=document.getElementById("uiCheck");
 const uiVersionField=document.getElementById("uiVersionField");
 
 function setPackType(type){
+
 packType=type;
 
 bpBtn.classList.toggle("active",type==="bp");
@@ -605,14 +876,22 @@ rpBtn.classList.toggle("active",type==="rp");
 bothBtn.classList.toggle("active",type==="both");
 
 if(type==="rp"){
+
 scriptSection.classList.add("hidden");
+
 useScript=false;
+
 scriptOffBtn.classList.add("active");
 scriptOnBtn.classList.remove("active");
+
 scriptSettings.classList.add("hidden");
+
 }else{
+
 scriptSection.classList.remove("hidden");
+
 }
+
 }
 
 bpBtn.onclick=()=>setPackType("bp");
@@ -620,95 +899,149 @@ rpBtn.onclick=()=>setPackType("rp");
 bothBtn.onclick=()=>setPackType("both");
 
 scriptOffBtn.onclick=()=>{
+
 useScript=false;
+
 scriptOffBtn.classList.add("active");
 scriptOnBtn.classList.remove("active");
+
 scriptSettings.classList.add("hidden");
+
 };
 
 scriptOnBtn.onclick=()=>{
+
 useScript=true;
+
 scriptOffBtn.classList.remove("active");
 scriptOnBtn.classList.add("active");
+
 scriptSettings.classList.remove("hidden");
+
 };
 
 uiCheck.onchange=()=>{
-uiVersionField.classList.toggle("hidden",!uiCheck.checked);
+
+uiVersionField.classList.toggle(
+"hidden",
+!uiCheck.checked
+);
+
 };
 
 function getValue(id,defaultValue){
+
 const value=document.getElementById(id).value.trim();
+
 return value||defaultValue;
+
 }
 
 function getVersion(id,defaultValue){
+
 const input=document.getElementById(id);
 const value=input.value.trim();
 
 if(!value){
+
 return defaultValue;
+
 }
 
 if(!/^[0-9]+(\.[0-9]+)*$/.test(value)){
+
 input.value="";
+
 return defaultValue;
+
 }
 
 return value;
+
 }
 
 function getScriptVersion(id,defaultValue){
+
 const input=document.getElementById(id);
 const value=input.value.trim();
 
 if(!value){
+
 return defaultValue;
+
 }
 
 if(value==="beta"){
+
 return value;
+
 }
 
 if(!/^[0-9]+(\.[0-9]+)*(?:-(?:beta|rc)(?:\.[0-9A-Za-z]+)*)?$/.test(value)){
+
 input.value="";
+
 return defaultValue;
+
 }
 
 return value;
+
 }
 
 function versionArray(value){
+
 return value.split(".").map(v=>{
+
 const n=parseInt(v,10);
+
 return Number.isNaN(n)?0:n;
+
 });
+
 }
 
 function getEntry(){
+
 let entry=document.getElementById("entry").value.trim();
 
 if(!entry){
+
 return "main.js";
+
 }
 
 if(!entry.endsWith(".js")){
+
 entry+=".js";
+
 }
 
 return entry;
+
 }
 
 function uuid(){
+
 return crypto.randomUUID();
+
 }
 
-function createBehaviorManifest(name,description,version,engine,bpUuid,rpUuid){
+function createBehaviorManifest(
+name,
+description,
+version,
+engine,
+bpUuid,
+rpUuid
+){
 
 const bpModuleUuid=uuid();
 
 const manifest={
+
 format_version:2,
+
 header:{
 name:name,
 description:description,
@@ -716,6 +1049,7 @@ uuid:bpUuid,
 version:versionArray(version),
 min_engine_version:versionArray(engine)
 },
+
 modules:[
 {
 description:description,
@@ -724,6 +1058,7 @@ uuid:bpModuleUuid,
 version:versionArray(version)
 }
 ]
+
 };
 
 if(useScript){
@@ -731,53 +1066,80 @@ if(useScript){
 const scriptUuid=uuid();
 
 manifest.modules.push({
+
 description:"Script",
 type:"script",
 language:"javascript",
 uuid:scriptUuid,
 version:versionArray(version),
 entry:getEntry()
+
 });
 
 manifest.dependencies=[
+
 {
 module_name:"@minecraft/server",
-version:getScriptVersion("serverVersion","2.7.0")
+version:getScriptVersion(
+"serverVersion",
+"2.7.0"
+)
 }
+
 ];
 
 if(uiCheck.checked){
 
 manifest.dependencies.push({
+
 module_name:"@minecraft/server-ui",
-version:getScriptVersion("uiVersion","1.1.0")
+version:getScriptVersion(
+"uiVersion",
+"1.1.0"
+)
+
 });
 
 }
+
 }
 
 if(rpUuid){
 
 if(!manifest.dependencies){
+
 manifest.dependencies=[];
+
 }
 
 manifest.dependencies.unshift({
+
 uuid:rpUuid,
 version:versionArray(version)
+
 });
 
 }
 
 return manifest;
+
 }
 
-function createResourceManifest(name,description,version,engine,rpUuid,bpUuid){
+function createResourceManifest(
+name,
+description,
+version,
+engine,
+rpUuid,
+bpUuid
+){
 
 const rpModuleUuid=uuid();
 
 const manifest={
+
 format_version:2,
+
 header:{
 name:name,
 description:description,
@@ -785,6 +1147,7 @@ uuid:rpUuid,
 version:versionArray(version),
 min_engine_version:versionArray(engine)
 },
+
 modules:[
 {
 description:"Resources",
@@ -793,50 +1156,68 @@ uuid:rpModuleUuid,
 version:versionArray(version)
 }
 ]
+
 };
 
 if(bpUuid){
 
 manifest.dependencies=[
+
 {
 uuid:bpUuid,
 version:versionArray(version)
 }
+
 ];
 
 }
 
 return manifest;
+
 }
 
 function createResult(title,data){
 
 const box=document.createElement("div");
+
 box.className="result-box";
 
 const titleBar=document.createElement("div");
+
 titleBar.className="result-title";
 
 const titleText=document.createElement("span");
+
 titleText.textContent=title;
 
 const copy=document.createElement("button");
+
 copy.className="copy-btn";
+
 copy.textContent="コピー";
 
 const pre=document.createElement("pre");
 
-const text=JSON.stringify(data,null,2);
+const text=JSON.stringify(
+data,
+null,
+2
+);
 
 pre.textContent=text;
 
 copy.onclick=async()=>{
+
 await navigator.clipboard.writeText(text);
+
 copy.textContent="コピーしました";
 
 setTimeout(()=>{
+
 copy.textContent="コピー";
+
 },1500);
+
 };
 
 titleBar.appendChild(titleText);
@@ -846,14 +1227,30 @@ box.appendChild(titleBar);
 box.appendChild(pre);
 
 return box;
+
 }
 
 document.getElementById("generateManifest").onclick=()=>{
 
-const name=getValue("name","アドオン名");
-const description=getValue("description","アドオン説明文");
-const version=getVersion("version","1.0.0");
-const engine=getVersion("engine","1.20.0");
+const name=getValue(
+"name",
+"アドオン名"
+);
+
+const description=getValue(
+"description",
+"アドオン説明文"
+);
+
+const version=getVersion(
+"version",
+"1.0.0"
+);
+
+const engine=getVersion(
+"engine",
+"1.20.0"
+);
 
 const result=document.getElementById("result");
 
@@ -873,7 +1270,10 @@ null
 );
 
 result.appendChild(
-createResult("ビヘイビアパック",bp)
+createResult(
+"ビヘイビアパック",
+bp
+)
 );
 
 }
@@ -892,7 +1292,10 @@ null
 );
 
 result.appendChild(
-createResult("リソースパック",rp)
+createResult(
+"リソースパック",
+rp
+)
 );
 
 }
@@ -921,11 +1324,17 @@ bpUuid
 );
 
 result.appendChild(
-createResult("ビヘイビアパック",bp)
+createResult(
+"ビヘイビアパック",
+bp
+)
 );
 
 result.appendChild(
-createResult("リソースパック",rp)
+createResult(
+"リソースパック",
+rp
+)
 );
 
 }
@@ -934,67 +1343,106 @@ createResult("リソースパック",rp)
 
 const rpFile=document.getElementById("rpFile");
 const bpFile=document.getElementById("bpFile");
+
 const rpName=document.getElementById("rpName");
 const bpName=document.getElementById("bpName");
+
 const rpDelete=document.getElementById("rpDelete");
 const bpDelete=document.getElementById("bpDelete");
+
 const generatePack=document.getElementById("generatePack");
 const status=document.getElementById("status");
 
 rpFile.onchange=()=>{
-rpName.textContent=rpFile.files.length?rpFile.files[0].name:"未選択";
+
+rpName.textContent=
+rpFile.files.length
+?rpFile.files[0].name
+:"未選択";
+
 updateButton();
+
 };
 
 bpFile.onchange=()=>{
-bpName.textContent=bpFile.files.length?bpFile.files[0].name:"未選択";
+
+bpName.textContent=
+bpFile.files.length
+?bpFile.files[0].name
+:"未選択";
+
 updateButton();
+
 };
 
 rpDelete.onclick=()=>{
+
 rpFile.value="";
+
 rpName.textContent="未選択";
+
 updateButton();
+
 };
 
 bpDelete.onclick=()=>{
+
 bpFile.value="";
+
 bpName.textContent="未選択";
+
 updateButton();
+
 };
 
 function updateButton(){
-generatePack.disabled=!rpFile.files.length&&!bpFile.files.length;
+
+generatePack.disabled=
+!rpFile.files.length &&
+!bpFile.files.length;
+
 }
 
 function setStatus(text,type=""){
+
 status.className="status "+type;
+
 status.innerHTML=text;
+
 }
 
 function isUnwanted(path){
-const parts=path.split("/").filter(Boolean);
+
+const parts=
+path.split("/").filter(Boolean);
 
 for(const part of parts){
+
 if(
 part==="__MACOSX" ||
 part===".DS_Store" ||
 part.startsWith("._") ||
 part.startsWith("__")
 ){
+
 return true;
+
 }
+
 }
 
 return false;
+
 }
 
 function normalizePath(path){
+
 return path
 .replace(/\\/g,"/")
 .split("/")
 .filter(Boolean)
 .join("/");
+
 }
 
 async function findManifestRoot(zip){
@@ -1002,6 +1450,7 @@ async function findManifestRoot(zip){
 const manifests=[];
 
 zip.forEach((path,entry)=>{
+
 const clean=normalizePath(path);
 
 if(
@@ -1009,130 +1458,196 @@ if(
 !isUnwanted(clean) &&
 clean.toLowerCase().endsWith("manifest.json")
 ){
+
 manifests.push({
+
 path:clean,
 entry:entry
+
 });
+
 }
+
 });
 
 if(!manifests.length){
-throw new Error("manifest.jsonが見つかりません。");
+
+throw new Error(
+"manifest.jsonが見つかりません。"
+);
+
 }
 
 if(manifests.length>1){
-throw new Error("manifest.jsonが複数見つかりました。");
+
+throw new Error(
+"manifest.jsonが複数見つかりました。"
+);
+
 }
 
-const manifestPath=manifests[0].path;
-const root=manifestPath.substring(
+const manifestPath=
+manifests[0].path;
+
+const root=
+manifestPath.substring(
 0,
 manifestPath.lastIndexOf("/")
 );
 
 return root;
+
 }
 
 async function readPack(file,type){
 
-const zip=await JSZip.loadAsync(file);
+const zip=
+await JSZip.loadAsync(file);
 
-const root=await findManifestRoot(zip);
+const root=
+await findManifestRoot(zip);
 
 const output={};
 
 zip.forEach((path,entry)=>{
 
-const clean=normalizePath(path);
+const clean=
+normalizePath(path);
 
 if(!clean){
+
 return;
+
 }
 
 if(isUnwanted(clean)){
+
 return;
+
 }
 
 let relative="";
 
 if(root){
+
 if(clean===root){
+
 return;
+
 }
 
 const prefix=root+"/";
 
 if(!clean.startsWith(prefix)){
+
 return;
+
 }
 
-relative=clean.substring(prefix.length);
+relative=
+clean.substring(prefix.length);
+
 }else{
+
 relative=clean;
+
 }
 
 if(!relative){
+
 return;
+
 }
 
 if(relative.startsWith("__")){
+
 return;
+
 }
 
 if(relative.startsWith("._")){
+
 return;
+
 }
 
 output[relative]=entry;
+
 });
 
 if(!output["manifest.json"]){
+
 throw new Error(
-type+"のmanifest.jsonを正しく検出できませんでした。"
+type+
+"のmanifest.jsonを正しく検出できませんでした。"
 );
+
 }
 
-const manifest=await getManifest(output);
+const manifest=
+await getManifest(output);
 
 if(!manifest){
+
 throw new Error(
-type+"のmanifest.jsonを読み込めません。"
+type+
+"のmanifest.jsonを読み込めません。"
 );
+
 }
 
 if(!Array.isArray(manifest.modules)){
+
 throw new Error(
-type+"のmanifest.jsonにmodulesがありません。"
+type+
+"のmanifest.jsonにmodulesがありません。"
 );
+
 }
 
-const moduleTypes=manifest.modules
+const moduleTypes=
+manifest.modules
 .map(module=>module.type)
 .filter(Boolean);
 
 let detectedType=null;
 
 if(moduleTypes.includes("resources")){
+
 detectedType="RP";
+
 }else if(moduleTypes.includes("data")){
+
 detectedType="BP";
+
 }
 
 if(!detectedType){
+
 throw new Error(
-type+"のmanifest.jsonからRP/BPを判定できません。"
+type+
+"のmanifest.jsonからRP/BPを判定できません。"
 );
+
 }
 
 if(detectedType!==type){
+
 throw new Error(
-type+"として選択されていますが、manifest.jsonは"+
-(detectedType==="RP"?"リソースパック":"ビヘイビアパック")+
+type+
+"として選択されていますが、manifest.jsonは"+
+(
+detectedType==="RP"
+?"リソースパック"
+:"ビヘイビアパック"
+)+
 "です。"
 );
+
 }
 
 return output;
+
 }
 
 async function addPackToZip(target,pack){
@@ -1142,28 +1657,47 @@ for(const path in pack){
 const entry=pack[path];
 
 if(entry.dir){
+
 target.folder(path);
+
 continue;
+
 }
 
-const data=await entry.async("uint8array");
+const data=
+await entry.async("uint8array");
 
-target.file(path,data);
+target.file(
+path,
+data
+);
+
 }
+
 }
 
 async function getManifest(pack){
 
 if(!pack["manifest.json"]){
+
 return null;
+
 }
 
 try{
-const text=await pack["manifest.json"].async("string");
+
+const text=
+await pack["manifest.json"]
+.async("string");
+
 return JSON.parse(text);
+
 }catch{
+
 return null;
+
 }
+
 }
 
 function getPackName(manifest,fallback){
@@ -1174,10 +1708,13 @@ manifest.header &&
 typeof manifest.header.name==="string" &&
 manifest.header.name.trim()
 ){
+
 return manifest.header.name.trim();
+
 }
 
 return fallback;
+
 }
 
 function safeFileName(name){
@@ -1186,31 +1723,47 @@ return name
 .replace(/[\\/:*?"<>|]/g,"")
 .replace(/\s+/g," ")
 .trim()
-.replace(/\.+$/,"") || "Addon";
+.replace(/\.+$/,"")
+||"Addon";
+
 }
 
 async function createMcpack(pack,type){
 
-const manifest=await getManifest(pack);
+const manifest=
+await getManifest(pack);
 
 const zip=new JSZip();
 
-await addPackToZip(zip,pack);
+await addPackToZip(
+zip,
+pack
+);
 
-const fallback=type==="RP"
+const fallback=
+type==="RP"
 ?"ResourcePack"
 :"BehaviorPack";
 
-const name=safeFileName(
-getPackName(manifest,fallback)
+const name=
+safeFileName(
+getPackName(
+manifest,
+fallback
+)
 );
 
-const blob=await zip.generateAsync({
+const blob=
+await zip.generateAsync({
+
 type:"blob",
+
 compression:"DEFLATE",
+
 compressionOptions:{
 level:9
 }
+
 });
 
 download(
@@ -1219,28 +1772,44 @@ name+".mcpack"
 );
 
 return name+".mcpack";
+
 }
 
 async function createMcaddon(rp,bp){
 
 const zip=new JSZip();
 
-const rpFolder=zip.folder("RP");
-const bpFolder=zip.folder("BP");
+const rpFolder=
+zip.folder("RP");
 
-await addPackToZip(rpFolder,rp);
-await addPackToZip(bpFolder,bp);
+const bpFolder=
+zip.folder("BP");
+
+await addPackToZip(
+rpFolder,
+rp
+);
+
+await addPackToZip(
+bpFolder,
+bp
+);
 
 let name="Addon";
 
 name=safeFileName(name);
 
-const blob=await zip.generateAsync({
+const blob=
+await zip.generateAsync({
+
 type:"blob",
+
 compression:"DEFLATE",
+
 compressionOptions:{
 level:9
 }
+
 });
 
 download(
@@ -1249,24 +1818,33 @@ name+".mcaddon"
 );
 
 return name+".mcaddon";
+
 }
 
 function download(blob,name){
 
-const url=URL.createObjectURL(blob);
+const url=
+URL.createObjectURL(blob);
 
-const a=document.createElement("a");
+const a=
+document.createElement("a");
 
 a.href=url;
+
 a.download=name;
 
 document.body.appendChild(a);
+
 a.click();
+
 a.remove();
 
 setTimeout(()=>{
+
 URL.revokeObjectURL(url);
+
 },1000);
+
 }
 
 generatePack.onclick=async()=>{
@@ -1275,14 +1853,23 @@ generatePack.disabled=true;
 
 try{
 
-const hasRP=rpFile.files.length>0;
-const hasBP=bpFile.files.length>0;
+const hasRP=
+rpFile.files.length>0;
+
+const hasBP=
+bpFile.files.length>0;
 
 if(!hasRP&&!hasBP){
-throw new Error("ZIPを1つ以上選択してください。");
+
+throw new Error(
+"ZIPを1つ以上選択してください。"
+);
+
 }
 
-setStatus("ZIPを読み込んでいます...");
+setStatus(
+"ZIPを読み込んでいます..."
+);
 
 let rp=null;
 let bp=null;
@@ -1296,18 +1883,30 @@ setStatus(
 );
 
 try{
-bp=await readPack(
+
+bp=
+await readPack(
 bpFile.files[0],
 "BP"
 );
+
 }catch(error){
 
-if(error.message==="manifest.jsonが見つかりません。"){
+if(
+error.message===
+"manifest.jsonが見つかりません。"
+){
+
 missing.push("BP");
+
 }else{
+
 throw error;
+
 }
+
 }
+
 }
 
 if(hasRP){
@@ -1317,25 +1916,39 @@ setStatus(
 );
 
 try{
-rp=await readPack(
+
+rp=
+await readPack(
 rpFile.files[0],
 "RP"
 );
+
 }catch(error){
 
-if(error.message==="manifest.jsonが見つかりません。"){
+if(
+error.message===
+"manifest.jsonが見つかりません。"
+){
+
 missing.push("RP");
+
 }else{
+
 throw error;
+
 }
+
 }
+
 }
 
 if(missing.length){
 
 throw new Error(
-missing.join(",")+"のmanifestが見つかりません。"
+missing.join(",")+
+"のmanifestが見つかりません。"
 );
+
 }
 
 if(hasRP&&hasBP){
@@ -1344,18 +1957,22 @@ setStatus(
 "RPとBPを整理してmcaddonを生成しています..."
 );
 
-const fileName=await createMcaddon(
+const fileName=
+await createMcaddon(
 rp,
 bp
 );
 
 setStatus(
+
 "✓ mcaddonを生成しました<br><br>"+
 "<strong>"+fileName+"</strong><br><br>"+
 "中身：<br>"+
 "RP/<br>"+
 "BP/",
+
 "success"
+
 );
 
 }else if(hasRP){
@@ -1364,15 +1981,19 @@ setStatus(
 "RPを整理してmcpackを生成しています..."
 );
 
-const fileName=await createMcpack(
+const fileName=
+await createMcpack(
 rp,
 "RP"
 );
 
 setStatus(
+
 "✓ mcpackを生成しました<br><br>"+
 "<strong>"+fileName+"</strong>",
+
 "success"
+
 );
 
 }else{
@@ -1381,16 +2002,21 @@ setStatus(
 "BPを整理してmcpackを生成しています..."
 );
 
-const fileName=await createMcpack(
+const fileName=
+await createMcpack(
 bp,
 "BP"
 );
 
 setStatus(
+
 "✓ mcpackを生成しました<br><br>"+
 "<strong>"+fileName+"</strong>",
+
 "success"
+
 );
+
 }
 
 }catch(error){
@@ -1403,7 +2029,9 @@ setStatus(
 }finally{
 
 generatePack.disabled=false;
+
 }
+
 };
 
 updateButton();
