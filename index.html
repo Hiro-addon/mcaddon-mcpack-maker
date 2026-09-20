@@ -481,26 +481,7 @@ async function createMcaddon(rp,bp){
   await addPackToZip(rpFolder,rp);
   await addPackToZip(bpFolder,bp);
 
-  const rpManifest=await getManifest(rp);
-  const bpManifest=await getManifest(bp);
-
   let name="Addon";
-
-  if(
-    bpManifest &&
-    bpManifest.header &&
-    typeof bpManifest.header.name==="string" &&
-    bpManifest.header.name.trim()
-  ){
-    name=bpManifest.header.name.trim();
-  }else if(
-    rpManifest &&
-    rpManifest.header &&
-    typeof rpManifest.header.name==="string" &&
-    rpManifest.header.name.trim()
-  ){
-    name=rpManifest.header.name.trim();
-  }
 
   name=safeFileName(name);
 
