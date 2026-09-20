@@ -377,8 +377,6 @@ color:#fff;
 color:#ff7777;
 }
 
-/* ページ切り替えローダー */
-
 .page-loader{
 position:fixed;
 inset:0;
@@ -714,6 +712,7 @@ MC Pack Builder
 </h1>
 
 </div>
+
 </div>
 
 <div class="subtitle">
@@ -798,6 +797,58 @@ menu.classList.toggle("active");
 
 let pageLoading=false;
 
+function resetPageData(page){
+
+if(page==="manifest"){
+
+document.getElementById("name").value="";
+document.getElementById("description").value="";
+document.getElementById("version").value="";
+document.getElementById("engine").value="";
+document.getElementById("entry").value="";
+document.getElementById("serverVersion").value="";
+document.getElementById("uiVersion").value="";
+document.getElementById("uiCheck").checked=false;
+
+document.getElementById("result").innerHTML="";
+
+packType="bp";
+useScript=false;
+
+bpBtn.classList.add("active");
+rpBtn.classList.remove("active");
+bothBtn.classList.remove("active");
+
+scriptOffBtn.classList.add("active");
+scriptOnBtn.classList.remove("active");
+
+scriptSettings.classList.add("hidden");
+
+scriptSection.classList.remove("hidden");
+
+uiVersionField.classList.add("hidden");
+
+}
+
+if(page==="pack"){
+
+rpFile.value="";
+bpFile.value="";
+
+rpName.textContent="未選択";
+bpName.textContent="未選択";
+
+status.className="status";
+
+status.innerHTML=
+"RPまたはBPのZIPを選択してください。";
+
+updateButton();
+
+}
+
+}
+
 function openPage(page){
 
 if(pageLoading){
@@ -807,8 +858,17 @@ return;
 const current=document.querySelector(".page.active");
 
 if(current && current.id===page){
+
 menu.classList.remove("active");
+
 return;
+
+}
+
+if(current){
+
+resetPageData(current.id);
+
 }
 
 pageLoading=true;
@@ -835,7 +895,9 @@ setTimeout(()=>{
 pageLoader.classList.remove("active");
 
 setTimeout(()=>{
+
 pageLoading=false;
+
 },120);
 
 },300);
@@ -847,7 +909,9 @@ pageLoading=false;
 document.addEventListener("click",e=>{
 
 if(!e.target.closest(".menu-wrap")){
+
 menu.classList.remove("active");
+
 }
 
 });
@@ -859,21 +923,42 @@ const bpBtn=document.getElementById("bpBtn");
 const rpBtn=document.getElementById("rpBtn");
 const bothBtn=document.getElementById("bothBtn");
 
-const scriptSection=document.getElementById("scriptSection");
-const scriptOffBtn=document.getElementById("scriptOffBtn");
-const scriptOnBtn=document.getElementById("scriptOnBtn");
-const scriptSettings=document.getElementById("scriptSettings");
+const scriptSection=
+document.getElementById("scriptSection");
 
-const uiCheck=document.getElementById("uiCheck");
-const uiVersionField=document.getElementById("uiVersionField");
+const scriptOffBtn=
+document.getElementById("scriptOffBtn");
+
+const scriptOnBtn=
+document.getElementById("scriptOnBtn");
+
+const scriptSettings=
+document.getElementById("scriptSettings");
+
+const uiCheck=
+document.getElementById("uiCheck");
+
+const uiVersionField=
+document.getElementById("uiVersionField");
 
 function setPackType(type){
 
 packType=type;
 
-bpBtn.classList.toggle("active",type==="bp");
-rpBtn.classList.toggle("active",type==="rp");
-bothBtn.classList.toggle("active",type==="both");
+bpBtn.classList.toggle(
+"active",
+type==="bp"
+);
+
+rpBtn.classList.toggle(
+"active",
+type==="rp"
+);
+
+bothBtn.classList.toggle(
+"active",
+type==="both"
+);
 
 if(type==="rp"){
 
@@ -882,6 +967,7 @@ scriptSection.classList.add("hidden");
 useScript=false;
 
 scriptOffBtn.classList.add("active");
+
 scriptOnBtn.classList.remove("active");
 
 scriptSettings.classList.add("hidden");
@@ -894,15 +980,24 @@ scriptSection.classList.remove("hidden");
 
 }
 
-bpBtn.onclick=()=>setPackType("bp");
-rpBtn.onclick=()=>setPackType("rp");
-bothBtn.onclick=()=>setPackType("both");
+bpBtn.onclick=()=>{
+setPackType("bp");
+};
+
+rpBtn.onclick=()=>{
+setPackType("rp");
+};
+
+bothBtn.onclick=()=>{
+setPackType("both");
+};
 
 scriptOffBtn.onclick=()=>{
 
 useScript=false;
 
 scriptOffBtn.classList.add("active");
+
 scriptOnBtn.classList.remove("active");
 
 scriptSettings.classList.add("hidden");
@@ -914,6 +1009,7 @@ scriptOnBtn.onclick=()=>{
 useScript=true;
 
 scriptOffBtn.classList.remove("active");
+
 scriptOnBtn.classList.add("active");
 
 scriptSettings.classList.remove("hidden");
@@ -931,7 +1027,10 @@ uiVersionField.classList.toggle(
 
 function getValue(id,defaultValue){
 
-const value=document.getElementById(id).value.trim();
+const value=
+document.getElementById(id)
+.value
+.trim();
 
 return value||defaultValue;
 
@@ -939,8 +1038,11 @@ return value||defaultValue;
 
 function getVersion(id,defaultValue){
 
-const input=document.getElementById(id);
-const value=input.value.trim();
+const input=
+document.getElementById(id);
+
+const value=
+input.value.trim();
 
 if(!value){
 
@@ -962,8 +1064,11 @@ return value;
 
 function getScriptVersion(id,defaultValue){
 
-const input=document.getElementById(id);
-const value=input.value.trim();
+const input=
+document.getElementById(id);
+
+const value=
+input.value.trim();
 
 if(!value){
 
@@ -977,7 +1082,9 @@ return value;
 
 }
 
-if(!/^[0-9]+(\.[0-9]+)*(?:-(?:beta|rc)(?:\.[0-9A-Za-z]+)*)?$/.test(value)){
+if(
+!/^[0-9]+(\.[0-9]+)*(?:-(?:beta|rc)(?:\.[0-9A-Za-z]+)*)?$/.test(value)
+){
 
 input.value="";
 
@@ -991,7 +1098,9 @@ return value;
 
 function versionArray(value){
 
-return value.split(".").map(v=>{
+return value
+.split(".")
+.map(v=>{
 
 const n=parseInt(v,10);
 
@@ -1003,7 +1112,10 @@ return Number.isNaN(n)?0:n;
 
 function getEntry(){
 
-let entry=document.getElementById("entry").value.trim();
+let entry=
+document.getElementById("entry")
+.value
+.trim();
 
 if(!entry){
 
@@ -1178,27 +1290,33 @@ return manifest;
 
 function createResult(title,data){
 
-const box=document.createElement("div");
+const box=
+document.createElement("div");
 
 box.className="result-box";
 
-const titleBar=document.createElement("div");
+const titleBar=
+document.createElement("div");
 
 titleBar.className="result-title";
 
-const titleText=document.createElement("span");
+const titleText=
+document.createElement("span");
 
 titleText.textContent=title;
 
-const copy=document.createElement("button");
+const copy=
+document.createElement("button");
 
 copy.className="copy-btn";
 
 copy.textContent="コピー";
 
-const pre=document.createElement("pre");
+const pre=
+document.createElement("pre");
 
-const text=JSON.stringify(
+const text=
+JSON.stringify(
 data,
 null,
 2
@@ -1230,29 +1348,36 @@ return box;
 
 }
 
-document.getElementById("generateManifest").onclick=()=>{
+document.getElementById(
+"generateManifest"
+).onclick=()=>{
 
-const name=getValue(
+const name=
+getValue(
 "name",
 "アドオン名"
 );
 
-const description=getValue(
+const description=
+getValue(
 "description",
 "アドオン説明文"
 );
 
-const version=getVersion(
+const version=
+getVersion(
 "version",
 "1.0.0"
 );
 
-const engine=getVersion(
+const engine=
+getVersion(
 "engine",
 "1.20.0"
 );
 
-const result=document.getElementById("result");
+const result=
+document.getElementById("result");
 
 result.innerHTML="";
 
@@ -1260,7 +1385,8 @@ if(packType==="bp"){
 
 const bpUuid=uuid();
 
-const bp=createBehaviorManifest(
+const bp=
+createBehaviorManifest(
 name,
 description,
 version,
@@ -1282,7 +1408,8 @@ if(packType==="rp"){
 
 const rpUuid=uuid();
 
-const rp=createResourceManifest(
+const rp=
+createResourceManifest(
 name,
 description,
 version,
@@ -1305,7 +1432,8 @@ if(packType==="both"){
 const bpUuid=uuid();
 const rpUuid=uuid();
 
-const bp=createBehaviorManifest(
+const bp=
+createBehaviorManifest(
 name,
 description,
 version,
@@ -1314,7 +1442,8 @@ bpUuid,
 rpUuid
 );
 
-const rp=createResourceManifest(
+const rp=
+createResourceManifest(
 name,
 description,
 version,
@@ -1341,17 +1470,29 @@ rp
 
 };
 
-const rpFile=document.getElementById("rpFile");
-const bpFile=document.getElementById("bpFile");
+const rpFile=
+document.getElementById("rpFile");
 
-const rpName=document.getElementById("rpName");
-const bpName=document.getElementById("bpName");
+const bpFile=
+document.getElementById("bpFile");
 
-const rpDelete=document.getElementById("rpDelete");
-const bpDelete=document.getElementById("bpDelete");
+const rpName=
+document.getElementById("rpName");
 
-const generatePack=document.getElementById("generatePack");
-const status=document.getElementById("status");
+const bpName=
+document.getElementById("bpName");
+
+const rpDelete=
+document.getElementById("rpDelete");
+
+const bpDelete=
+document.getElementById("bpDelete");
+
+const generatePack=
+document.getElementById("generatePack");
+
+const status=
+document.getElementById("status");
 
 rpFile.onchange=()=>{
 
@@ -1414,7 +1555,8 @@ status.innerHTML=text;
 function isUnwanted(path){
 
 const parts=
-path.split("/").filter(Boolean);
+path.split("/")
+.filter(Boolean);
 
 for(const part of parts){
 
@@ -1451,7 +1593,8 @@ const manifests=[];
 
 zip.forEach((path,entry)=>{
 
-const clean=normalizePath(path);
+const clean=
+normalizePath(path);
 
 if(
 !entry.dir &&
@@ -1536,7 +1679,8 @@ return;
 
 }
 
-const prefix=root+"/";
+const prefix=
+root+"/";
 
 if(!clean.startsWith(prefix)){
 
@@ -1545,7 +1689,9 @@ return;
 }
 
 relative=
-clean.substring(prefix.length);
+clean.substring(
+prefix.length
+);
 
 }else{
 
@@ -1733,7 +1879,8 @@ async function createMcpack(pack,type){
 const manifest=
 await getManifest(pack);
 
-const zip=new JSZip();
+const zip=
+new JSZip();
 
 await addPackToZip(
 zip,
@@ -1777,7 +1924,8 @@ return name+".mcpack";
 
 async function createMcaddon(rp,bp){
 
-const zip=new JSZip();
+const zip=
+new JSZip();
 
 const rpFolder=
 zip.folder("RP");
@@ -1797,7 +1945,8 @@ bp
 
 let name="Addon";
 
-name=safeFileName(name);
+name=
+safeFileName(name);
 
 const blob=
 await zip.generateAsync({
