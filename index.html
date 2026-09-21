@@ -31,7 +31,6 @@ height:78px;
 background:#fff;
 position:relative;
 }
-
 .app-header-title{
 position:absolute;
 left:50%;
@@ -42,14 +41,12 @@ font-size:21px;
 font-weight:700;
 white-space:nowrap;
 }
-
 .app-menu-wrap{
 position:absolute;
 left:0;
 top:8px;
 z-index:10;
 }
-
 .app-menu-button{
 width:58px;
 height:62px;
@@ -61,7 +58,6 @@ flex-direction:column;
 align-items:center;
 justify-content:center;
 }
-
 .app-menu-icon{
 font-size:31px;
 line-height:29px;
@@ -398,23 +394,6 @@ border-radius:14px;
 background:#111;
 display:block;
 }
-#externalMenuItems{
-width:100%;
-}
-#externalMenuItems button{
-width:100%;
-padding:12px;
-border:0;
-border-radius:8px;
-background:transparent;
-color:#fff;
-text-align:left;
-font-size:14px;
-cursor:pointer;
-}
-#externalMenuItems button:hover{
-background:#292929;
-}
 @media(max-width:650px){
 .tool-grid{
 grid-template-columns:1fr;
@@ -452,7 +431,6 @@ Manifest Generator
 <button onclick="openPage('pack')">
 MC Pack Builder
 </button>
-<div id="externalMenuItems"></div>
 </div>
 </div>
 <div class="app-header-title">
@@ -491,6 +469,7 @@ Manifest Generator
 Minecraft Bedrockのmanifest.jsonを簡単に生成
 </div>
 </button>
+
 <button class="tool-card" onclick="openPage('pack')">
 <div class="tool-icon">
 📦
@@ -502,7 +481,6 @@ MC Pack Builder
 ZIPからmcpack / mcaddonを自動生成
 </div>
 </button>
-<div id="externalToolCards"></div>
 </div>
 </div>
 </div>
@@ -521,6 +499,7 @@ Manifest Generator
 <div class="subtitle">
 Minecraft Bedrock Addon Manifest Generator
 </div>
+
 <div class="section">
 <h2>
 パックタイプ
@@ -537,6 +516,7 @@ BP ＋ RP
 </button>
 </div>
 </div>
+
 <div class="section">
 <h2>
 基本設定
@@ -547,18 +527,21 @@ BP ＋ RP
 </label>
 <input id="name" type="text" placeholder="アドオン名">
 </div>
+
 <div class="field">
 <label>
 説明文
 </label>
 <input id="description" type="text" placeholder="アドオン説明文">
 </div>
+
 <div class="field">
 <label>
 アドオンのバージョン
 </label>
 <input id="version" type="text" placeholder="1.0.0">
 </div>
+
 <div class="field">
 <label>
 最低Minecraftバージョン
@@ -571,6 +554,7 @@ BP ＋ RP
 <h2>
 スクリプト
 </h2>
+
 <div class="script-choice">
 <button id="scriptOffBtn" class="active">
 使用しない
@@ -579,19 +563,23 @@ BP ＋ RP
 使用する
 </button>
 </div>
+
 <div id="scriptSettings" class="hidden">
+
 <div class="field">
 <label>
 エントリーファイル
 </label>
 <input id="entry" type="text" placeholder="main.js">
 </div>
+
 <div class="field">
 <label>
 @microsoft/server バージョン
 </label>
 <input id="serverVersion" type="text" placeholder="2.7.0">
 </div>
+
 <div class="field">
 <label>
 @microsoft/server-ui
@@ -603,12 +591,14 @@ BP ＋ RP
 </span>
 </div>
 </div>
+
 <div class="field hidden" id="uiVersionField">
 <label>
 @microsoft/server-ui バージョン
 </label>
 <input id="uiVersion" type="text" placeholder="1.1.0">
 </div>
+
 </div>
 </div>
 
@@ -617,6 +607,7 @@ BP ＋ RP
 Manifestを生成
 </button>
 </div>
+
 <div class="result" id="result"></div>
 </div>
 
@@ -631,21 +622,27 @@ MC Pack Builder
 </h1>
 </div>
 </div>
+
 <div class="subtitle">
 Minecraft Bedrock Pack Generator
 </div>
+
 <div class="section">
 <h2>
 ビヘイビアパック
 </h2>
+
 <div class="upload">
 <label class="upload-button" for="bpFile">
 BP ZIPを選択
 </label>
+
 <button class="delete-button" id="bpDelete">
 削除
 </button>
+
 <input id="bpFile" type="file" accept=".zip,application/zip">
+
 <div class="file-name" id="bpName">
 未選択
 </div>
@@ -656,14 +653,18 @@ BP ZIPを選択
 <h2>
 リソースパック
 </h2>
+
 <div class="upload">
 <label class="upload-button" for="rpFile">
 RP ZIPを選択
 </label>
+
 <button class="delete-button" id="rpDelete">
 削除
 </button>
+
 <input id="rpFile" type="file" accept=".zip,application/zip">
+
 <div class="file-name" id="rpName">
 未選択
 </div>
@@ -675,6 +676,7 @@ RP ZIPを選択
 パックを生成
 </button>
 </div>
+
 <div class="status" id="status">
 RPまたはBPのZIPを選択してください。
 </div>
@@ -694,7 +696,9 @@ menu.classList.toggle("active");
 let pageLoading=false;
 
 function resetPageData(page){
+
 if(page==="manifest"){
+
 document.getElementById("name").value="";
 document.getElementById("description").value="";
 document.getElementById("version").value="";
@@ -704,38 +708,51 @@ document.getElementById("serverVersion").value="";
 document.getElementById("uiVersion").value="";
 document.getElementById("uiCheck").checked=false;
 document.getElementById("result").innerHTML="";
+
 packType="bp";
 useScript=false;
+
 bpBtn.classList.add("active");
 rpBtn.classList.remove("active");
 bothBtn.classList.remove("active");
+
 scriptOffBtn.classList.add("active");
 scriptOnBtn.classList.remove("active");
+
 scriptSettings.classList.add("hidden");
 scriptSection.classList.remove("hidden");
 uiVersionField.classList.add("hidden");
+
 }
 
 if(page==="pack"){
+
 rpFile.value="";
 bpFile.value="";
+
 rpName.textContent="未選択";
 bpName.textContent="未選択";
+
 status.className="status";
 status.innerHTML=
 "RPまたはBPのZIPを選択してください。";
+
 updateButton();
+
 }
+
 }
 
 function openPage(page){
+
 if(pageLoading){
 return;
 }
 
-const current=document.querySelector(".page.active");
+const current=
+document.querySelector(".page.active");
 
-if(current && current.id===page){
+if(current&&current.id===page){
 menu.classList.remove("active");
 return;
 }
@@ -745,15 +762,26 @@ resetPageData(current.id);
 }
 
 pageLoading=true;
+
 menu.classList.remove("active");
 pageLoader.classList.add("active");
 
 setTimeout(()=>{
+
 document.querySelectorAll(".page").forEach(p=>{
 p.classList.remove("active");
 });
 
-document.getElementById(page).classList.add("active");
+const target=
+document.getElementById(page);
+
+if(!target){
+pageLoader.classList.remove("active");
+pageLoading=false;
+return;
+}
+
+target.classList.add("active");
 
 window.scrollTo({
 top:0,
@@ -761,6 +789,7 @@ behavior:"instant"
 });
 
 setTimeout(()=>{
+
 pageLoader.classList.remove("active");
 
 setTimeout(()=>{
@@ -770,20 +799,28 @@ pageLoading=false;
 },300);
 
 },120);
+
 }
 
 document.addEventListener("click",e=>{
+
 if(!e.target.closest(".menu-wrap")){
 menu.classList.remove("active");
 }
+
 });
 
 let packType="bp";
 let useScript=false;
 
-const bpBtn=document.getElementById("bpBtn");
-const rpBtn=document.getElementById("rpBtn");
-const bothBtn=document.getElementById("bothBtn");
+const bpBtn=
+document.getElementById("bpBtn");
+
+const rpBtn=
+document.getElementById("rpBtn");
+
+const bothBtn=
+document.getElementById("bothBtn");
 
 const scriptSection=
 document.getElementById("scriptSection");
@@ -804,6 +841,7 @@ const uiVersionField=
 document.getElementById("uiVersionField");
 
 function setPackType(type){
+
 packType=type;
 
 bpBtn.classList.toggle(
@@ -822,14 +860,22 @@ type==="both"
 );
 
 if(type==="rp"){
+
 scriptSection.classList.add("hidden");
+
 useScript=false;
+
 scriptOffBtn.classList.add("active");
 scriptOnBtn.classList.remove("active");
+
 scriptSettings.classList.add("hidden");
+
 }else{
+
 scriptSection.classList.remove("hidden");
+
 }
+
 }
 
 bpBtn.onclick=()=>{
@@ -845,36 +891,49 @@ setPackType("both");
 };
 
 scriptOffBtn.onclick=()=>{
+
 useScript=false;
+
 scriptOffBtn.classList.add("active");
 scriptOnBtn.classList.remove("active");
+
 scriptSettings.classList.add("hidden");
+
 };
 
 scriptOnBtn.onclick=()=>{
+
 useScript=true;
+
 scriptOffBtn.classList.remove("active");
 scriptOnBtn.classList.add("active");
+
 scriptSettings.classList.remove("hidden");
+
 };
 
 uiCheck.onchange=()=>{
+
 uiVersionField.classList.toggle(
 "hidden",
 !uiCheck.checked
 );
+
 };
 
 function getValue(id,defaultValue){
+
 const value=
 document.getElementById(id)
 .value
 .trim();
 
 return value||defaultValue;
+
 }
 
 function getVersion(id,defaultValue){
+
 const input=
 document.getElementById(id);
 
@@ -886,14 +945,19 @@ return defaultValue;
 }
 
 if(!/^[0-9]+(\.[0-9]+)*$/.test(value)){
+
 input.value="";
+
 return defaultValue;
+
 }
 
 return value;
+
 }
 
 function getScriptVersion(id,defaultValue){
+
 const input=
 document.getElementById(id);
 
@@ -911,23 +975,34 @@ return value;
 if(
 !/^[0-9]+(\.[0-9]+)*(?:-(?:beta|rc)(?:\.[0-9A-Za-z]+)*)?$/.test(value)
 ){
+
 input.value="";
+
 return defaultValue;
+
 }
 
 return value;
+
 }
 
 function versionArray(value){
+
 return value
 .split(".")
 .map(v=>{
-const n=parseInt(v,10);
+
+const n=
+parseInt(v,10);
+
 return Number.isNaN(n)?0:n;
+
 });
+
 }
 
 function getEntry(){
+
 let entry=
 document.getElementById("entry")
 .value
@@ -942,6 +1017,7 @@ entry+=".js";
 }
 
 return entry;
+
 }
 
 function uuid(){
@@ -956,10 +1032,13 @@ engine,
 bpUuid,
 rpUuid
 ){
+
 const bpModuleUuid=uuid();
 
 const manifest={
+
 format_version:2,
+
 header:{
 name:name,
 description:description,
@@ -967,6 +1046,7 @@ uuid:bpUuid,
 version:versionArray(version),
 min_engine_version:versionArray(engine)
 },
+
 modules:[
 {
 description:description,
@@ -975,21 +1055,26 @@ uuid:bpModuleUuid,
 version:versionArray(version)
 }
 ]
+
 };
 
 if(useScript){
+
 const scriptUuid=uuid();
 
 manifest.modules.push({
+
 description:"Script",
 type:"script",
 language:"javascript",
 uuid:scriptUuid,
 version:versionArray(version),
 entry:getEntry()
+
 });
 
 manifest.dependencies=[
+
 {
 module_name:"@minecraft/server",
 version:getScriptVersion(
@@ -997,31 +1082,42 @@ version:getScriptVersion(
 "2.7.0"
 )
 }
+
 ];
 
 if(uiCheck.checked){
+
 manifest.dependencies.push({
+
 module_name:"@minecraft/server-ui",
 version:getScriptVersion(
 "uiVersion",
 "1.1.0"
 )
+
 });
+
 }
+
 }
 
 if(rpUuid){
+
 if(!manifest.dependencies){
 manifest.dependencies=[];
 }
 
 manifest.dependencies.unshift({
+
 uuid:rpUuid,
 version:versionArray(version)
+
 });
+
 }
 
 return manifest;
+
 }
 
 function createResourceManifest(
@@ -1032,10 +1128,13 @@ engine,
 rpUuid,
 bpUuid
 ){
+
 const rpModuleUuid=uuid();
 
 const manifest={
+
 format_version:2,
+
 header:{
 name:name,
 description:description,
@@ -1043,6 +1142,7 @@ uuid:rpUuid,
 version:versionArray(version),
 min_engine_version:versionArray(engine)
 },
+
 modules:[
 {
 description:description,
@@ -1051,21 +1151,28 @@ uuid:rpModuleUuid,
 version:versionArray(version)
 }
 ]
+
 };
 
 if(bpUuid){
+
 manifest.dependencies=[
+
 {
 uuid:bpUuid,
 version:versionArray(version)
 }
+
 ];
+
 }
 
 return manifest;
+
 }
 
 function createResult(title,data){
+
 const box=
 document.createElement("div");
 
@@ -1088,14 +1195,17 @@ copy.className="copy-btn";
 copy.textContent="コピー";
 
 copy.onclick=async()=>{
+
 await navigator.clipboard.writeText(
 JSON.stringify(data,null,2)
 );
+
 copy.textContent="コピーしました";
 
 setTimeout(()=>{
 copy.textContent="コピー";
 },1500);
+
 };
 
 header.appendChild(titleText);
@@ -1111,6 +1221,7 @@ box.appendChild(header);
 box.appendChild(pre);
 
 return box;
+
 }
 
 document.getElementById(
@@ -1232,6 +1343,7 @@ rp
 );
 
 }
+
 };
 
 const rpFile=
@@ -1259,47 +1371,64 @@ const status=
 document.getElementById("status");
 
 rpFile.onchange=()=>{
+
 rpName.textContent=
 rpFile.files.length
 ?rpFile.files[0].name
 :"未選択";
 
 updateButton();
+
 };
 
 bpFile.onchange=()=>{
+
 bpName.textContent=
 bpFile.files.length
 ?bpFile.files[0].name
 :"未選択";
 
 updateButton();
+
 };
 
 rpDelete.onclick=()=>{
+
 rpFile.value="";
 rpName.textContent="未選択";
+
 updateButton();
+
 };
 
 bpDelete.onclick=()=>{
+
 bpFile.value="";
 bpName.textContent="未選択";
+
 updateButton();
+
 };
 
 function updateButton(){
+
 generatePack.disabled=
 !rpFile.files.length &&
 !bpFile.files.length;
+
 }
 
 function setStatus(text,type=""){
-status.className="status "+type;
+
+status.className=
+"status "+type;
+
 status.innerHTML=text;
+
 }
 
 function isUnwanted(path){
+
 const parts=
 path.split("/")
 .filter(Boolean);
@@ -1312,20 +1441,25 @@ part===".DS_Store" ||
 part.startsWith("._") ||
 part.startsWith("__")
 ){
+
 return true;
+
 }
 
 }
 
 return false;
+
 }
 
 function normalizePath(path){
+
 return path
 .replace(/\\/g,"/")
 .split("/")
 .filter(Boolean)
 .join("/");
+
 }
 
 async function findManifestRoot(zip){
@@ -1353,15 +1487,19 @@ entry:entry
 });
 
 if(!manifests.length){
+
 throw new Error(
 "manifest.jsonが見つかりません。"
 );
+
 }
 
 if(manifests.length>1){
+
 throw new Error(
 "manifest.jsonが複数見つかりました。"
 );
+
 }
 
 const manifestPath=
@@ -1374,6 +1512,7 @@ manifestPath.lastIndexOf("/")
 );
 
 return root;
+
 }
 
 async function readPack(file,type){
@@ -1442,27 +1581,33 @@ output[relative]=entry;
 });
 
 if(!output["manifest.json"]){
+
 throw new Error(
 type+
 "のmanifest.jsonを正しく検出できませんでした。"
 );
+
 }
 
 const manifest=
 await getManifest(output);
 
 if(!manifest){
+
 throw new Error(
 type+
 "のmanifest.jsonを読み込めません。"
 );
+
 }
 
 if(!Array.isArray(manifest.modules)){
+
 throw new Error(
 type+
 "のmanifest.jsonにmodulesがありません。"
 );
+
 }
 
 const moduleTypes=
@@ -1473,16 +1618,22 @@ manifest.modules
 let detectedType=null;
 
 if(moduleTypes.includes("resources")){
+
 detectedType="RP";
+
 }else if(moduleTypes.includes("data")){
+
 detectedType="BP";
+
 }
 
 if(!detectedType){
+
 throw new Error(
 type+
 "のmanifest.jsonからRP/BPを判定できません。"
 );
+
 }
 
 if(detectedType!==type){
@@ -1501,6 +1652,7 @@ detectedType==="RP"
 }
 
 return output;
+
 }
 
 async function addPackToZip(target,pack){
@@ -1510,8 +1662,11 @@ for(const path in pack){
 const entry=pack[path];
 
 if(entry.dir){
+
 target.folder(path);
+
 continue;
+
 }
 
 const data=
@@ -1562,6 +1717,7 @@ return manifest.header.name.trim();
 }
 
 return fallback;
+
 }
 
 function safeFileName(name){
@@ -1603,11 +1759,15 @@ fallback
 
 const blob=
 await zip.generateAsync({
+
 type:"blob",
+
 compression:"DEFLATE",
+
 compressionOptions:{
 level:9
 }
+
 });
 
 download(
@@ -1616,6 +1776,7 @@ name+".mcpack"
 );
 
 return name+".mcpack";
+
 }
 
 async function createMcaddon(rp,bp){
@@ -1646,11 +1807,15 @@ safeFileName(name);
 
 const blob=
 await zip.generateAsync({
+
 type:"blob",
+
 compression:"DEFLATE",
+
 compressionOptions:{
 level:9
 }
+
 });
 
 download(
@@ -1659,6 +1824,7 @@ name+".mcaddon"
 );
 
 return name+".mcaddon";
+
 }
 
 function download(blob,name){
@@ -1868,92 +2034,283 @@ const GITHUB_API="https://api.github.com/repos/"+GITHUB_OWNER+"/"+GITHUB_REPO+"/
 const externalTools=[];
 
 function escapeExternalHtml(value){
+
 return String(value).replace(/[&<>'"]/g,char=>({
+
 "&":"&amp;",
 "<":"&lt;",
 ">":"&gt;",
 "'":"&#39;",
 "\"":"&quot;"
+
 }[char]));
+
+}
+
+async function getExternalToolInfo(file){
+
+let name=
+file.name.replace(
+/\.html?$/i,
+""
+);
+
+let description="";
+
+try{
+
+const response=
+await fetch(
+file.download_url,
+{
+cache:"no-store"
+}
+);
+
+if(response.ok){
+
+const html=
+await response.text();
+
+const doc=
+new DOMParser().parseFromString(
+html,
+"text/html"
+);
+
+const title=
+doc.querySelector("title");
+
+const meta=
+doc.querySelector(
+'meta[name="description"]'
+);
+
+if(
+title &&
+title.textContent.trim()
+){
+
+name=
+title.textContent.trim();
+
+}
+
+if(
+meta &&
+meta.content.trim()
+){
+
+description=
+meta.content.trim();
+
+}
+
+}
+
+}catch(e){}
+
+return{
+
+id:
+"external_"+
+file.name.replace(
+/[^a-zA-Z0-9_-]/g,
+"_"
+),
+
+name:name,
+
+description:description,
+
+icon:"🛠️",
+
+url:
+new URL(
+file.name,
+location.href
+).href
+
+};
+
 }
 
 function createExternalTool(tool){
-const menuItem=document.createElement("button");
-menuItem.textContent=tool.name;
-menuItem.onclick=()=>openPage(tool.id);
-document.getElementById("externalMenuItems").appendChild(menuItem);
 
-const card=document.createElement("button");
+const menu=
+document.getElementById("menu");
+
+const menuButton=
+document.createElement("button");
+
+menuButton.textContent=
+tool.name;
+
+menuButton.onclick=()=>{
+openPage(tool.id);
+};
+
+menu.appendChild(menuButton);
+
+const grid=
+document.querySelector(
+"#home .tool-grid"
+);
+
+const card=
+document.createElement("button");
+
 card.className="tool-card";
 card.type="button";
-card.onclick=()=>openPage(tool.id);
-card.innerHTML=`
-<div class="tool-icon">${escapeExternalHtml(tool.icon)}</div>
-<div class="tool-name">${escapeExternalHtml(tool.name)}</div>
-<div class="tool-description">${escapeExternalHtml(tool.description)}</div>
-`;
-document.getElementById("externalToolCards").appendChild(card);
 
-const page=document.createElement("div");
-page.className="page external-tool-page";
-page.id=tool.id;
+card.onclick=()=>{
+openPage(tool.id);
+};
+
+card.innerHTML=`
+
+<div class="tool-icon">
+${escapeExternalHtml(tool.icon)}
+</div>
+
+<div class="tool-name">
+${escapeExternalHtml(tool.name)}
+</div>
+
+<div class="tool-description">
+${escapeExternalHtml(tool.description)}
+</div>
+
+`;
+
+grid.appendChild(card);
+
+const page=
+document.createElement("div");
+
+page.className=
+"page external-tool-page";
+
+page.id=
+tool.id;
+
 page.innerHTML=`
+
 <div class="header">
+
 <div class="header-left">
-<button class="back" onclick="openPage('home')">
+
+<button
+class="back"
+onclick="openPage('home')"
+>
 ←
 </button>
-<h1>${escapeExternalHtml(tool.name)}</h1>
+
+<h1>
+${escapeExternalHtml(tool.name)}
+</h1>
+
 </div>
+
 </div>
-<div class="subtitle">${escapeExternalHtml(tool.description)}</div>
-<iframe class="external-tool-frame" title="${escapeExternalHtml(tool.name)}"></iframe>
+
+<div class="subtitle">
+${escapeExternalHtml(tool.description)}
+</div>
+
+<iframe
+class="external-tool-frame"
+title="${escapeExternalHtml(tool.name)}"
+></iframe>
+
 `;
 
-const frame=page.querySelector("iframe");
-frame.src=tool.url;
+const frame=
+page.querySelector("iframe");
 
-document.querySelector(".container").appendChild(page);
+frame.src=
+tool.url;
+
+document
+.querySelector(".container")
+.appendChild(page);
+
 }
 
 async function loadExternalTools(){
+
 try{
-const response=await fetch(GITHUB_API+"?v="+Date.now(),{
+
+const response=
+await fetch(
+GITHUB_API+
+"?v="+
+Date.now(),
+{
+
 cache:"no-store",
+
 headers:{
-"Accept":"application/vnd.github+json"
+"Accept":
+"application/vnd.github+json"
 }
-});
 
-if(!response.ok)return;
-
-const files=await response.json();
-if(!Array.isArray(files))return;
-
-const htmlFiles=files.filter(file=>
-file.type==="file"&&
-/\.html?$/i.test(file.name)&&
-file.name.toLowerCase()!=="index.html"
+}
 );
 
-for(const file of htmlFiles){
-const name=file.name.replace(/\.html?$/i,"");
-const id="external_"+file.name.replace(/[^a-zA-Z0-9_-]/g,"_");
+if(!response.ok){
+return;
+}
 
-if(document.getElementById(id))continue;
+const files=
+await response.json();
 
-const tool={
-id:id,
-name:name,
-description:"Minecraft Bedrock Addon Tool",
-icon:"🛠️",
-url:new URL(file.name,location.href).href
-};
+if(!Array.isArray(files)){
+return;
+}
+
+const htmlFiles=
+files.filter(file=>
+
+file.type==="file" &&
+
+/\.html?$/i.test(
+file.name
+) &&
+
+file.name.toLowerCase()!=="index.html"
+
+);
+
+const tools=
+await Promise.all(
+
+htmlFiles.map(
+file=>
+getExternalToolInfo(file)
+)
+
+);
+
+tools.forEach(tool=>{
+
+if(
+document.getElementById(
+tool.id
+)
+){
+return;
+}
 
 externalTools.push(tool);
+
 createExternalTool(tool);
-}
+
+});
+
 }catch(e){}
+
 }
 
 loadExternalTools();
