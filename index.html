@@ -31,7 +31,6 @@ height:78px;
 background:#fff;
 position:relative;
 }
-
 .app-header-title{
 position:absolute;
 left:50%;
@@ -42,14 +41,12 @@ font-size:21px;
 font-weight:700;
 white-space:nowrap;
 }
-
 .app-menu-wrap{
 position:absolute;
 left:0;
 top:8px;
 z-index:10;
 }
-
 .app-menu-button{
 width:58px;
 height:62px;
@@ -61,7 +58,6 @@ flex-direction:column;
 align-items:center;
 justify-content:center;
 }
-
 .app-menu-icon{
 font-size:31px;
 line-height:29px;
@@ -110,7 +106,9 @@ position:relative;
 position:absolute;
 left:0;
 top:70px;
-width:220px;
+width:250px;
+max-height:70vh;
+overflow-y:auto;
 background:#1a1a1a;
 border:1px solid #333;
 border-radius:12px;
@@ -191,6 +189,13 @@ margin-top:6px;
 color:#888;
 font-size:13px;
 line-height:1.5;
+}
+.external-page{
+width:100%;
+height:calc(100vh - 78px);
+border:0;
+display:block;
+background:#111;
 }
 label{
 display:block;
@@ -423,6 +428,7 @@ Manifest Generator
 <button onclick="openPage('pack')">
 MC Pack Builder
 </button>
+<div id="externalMenuItems"></div>
 </div>
 </div>
 <div class="app-header-title">
@@ -449,7 +455,7 @@ Minecraft Bedrock Addon Tools
 <h2>
 機能一覧
 </h2>
-<div class="tool-grid">
+<div class="tool-grid" id="toolGrid">
 <button class="tool-card" onclick="openPage('manifest')">
 <div class="tool-icon">
 📄
@@ -652,15 +658,22 @@ RPまたはBPのZIPを選択してください。
 </div>
 
 <script>
+const GITHUB_OWNER="Hiro-addon";
+const GITHUB_REPO="Hiro-Addon-Tools";
+const GITHUB_TOOLS_PATH="tools";
+
 const menuButton=document.getElementById("menuButton");
 const menu=document.getElementById("menu");
 const pageLoader=document.getElementById("pageLoader");
+const toolGrid=document.getElementById("toolGrid");
+const externalMenuItems=document.getElementById("externalMenuItems");
+
+let externalTools=[];
+let pageLoading=false;
 
 menuButton.onclick=()=>{
 menu.classList.toggle("active");
 };
-
-let pageLoading=false;
 
 function resetPageData(page){
 if(page==="manifest"){
@@ -709,7 +722,7 @@ menu.classList.remove("active");
 return;
 }
 
-if(current){
+if(current && !current.classList.contains("external-page-wrapper")){
 resetPageData(current.id);
 }
 
@@ -722,7 +735,11 @@ document.querySelectorAll(".page").forEach(p=>{
 p.classList.remove("active");
 });
 
-document.getElementById(page).classList.add("active");
+const target=document.getElementById(page);
+
+if(target){
+target.classList.add("active");
+}
 
 window.scrollTo({
 top:0,
@@ -746,6 +763,132 @@ if(!e.target.closest(".menu-wrap")){
 menu.classList.remove("active");
 }
 });
+
+function createExternalTool(tool){
+const page=document.createElement("div");
+
+page.className="page external-page-wrapper";
+page.id=tool.id;
+
+const frame=document.createElement("iframe");
+
+frame.className="external-page";
+frame.src=tool.url;
+frame.setAttribute("allow","fullscreen");
+frame.setAttribute("loading","lazy");
+
+page.appendChild(frame);
+
+document.querySelector(".container").appendChild(page);
+
+const menuButton=document.createElement("button");
+
+menuButton.textContent=tool.name;
+menuButton.onclick=()=>{
+openPage(tool.id);
+};
+
+externalMenuItems.appendChild(menuButton);
+
+const card=document.createElement("button");
+
+card.className="tool-card";
+card.onclick=()=>{
+openPage(tool.id);
+};
+
+card.innerHTML=`
+<div class="tool-icon">
+${tool.icon}
+</div>
+<div class="tool-name">
+${escapeHtml(tool.name)}
+</div>
+<div class="tool-description">
+${escapeHtml(tool.description)}
+</div>
+`;
+
+toolGrid.appendChild(card);
+}
+
+function escapeHtml(value){
+return String(value)
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
+}
+
+function getToolName(file){
+return file
+.replace(/\.html?$/i,"")
+.replace(/[-_]+/g," ")
+.replace(/\b\w/g,char=>char.toUpperCase());
+}
+
+async function loadExternalTools(){
+try{
+
+const apiUrl=
+"https://api.github.com/repos/"+
+GITHUB_OWNER+
+"/"+
+GITHUB_REPO+
+"/contents/"+
+GITHUB_TOOLS_PATH;
+
+const response=
+await fetch(apiUrl,{
+cache:"no-store"
+});
+
+if(!response.ok){
+throw new Error("GitHub API error");
+}
+
+const files=
+await response.json();
+
+if(!Array.isArray(files)){
+return;
+}
+
+const htmlFiles=
+files.filter(file=>
+file.type==="file" &&
+/\.html?$/i.test(file.name)
+);
+
+for(const file of htmlFiles){
+
+const id=
+"external_"+file.name
+.replace(/[^a-zA-Z0-9_-]/g,"_");
+
+const tool={
+id:id,
+name:getToolName(file.name),
+description:"GitHubから読み込まれたツール",
+icon:"🛠️",
+url:file.download_url
+};
+
+externalTools.push(tool);
+createExternalTool(tool);
+
+}
+
+}catch(error){
+
+console.log(
+"外部ツールの読み込みに失敗しました。",
+error
+);
+
+}
+}
 
 let packType="bp";
 let useScript=false;
@@ -1834,6 +1977,8 @@ generatePack.disabled=false;
 };
 
 updateButton();
+
+loadExternalTools();
 </script>
 </body>
 </html>
