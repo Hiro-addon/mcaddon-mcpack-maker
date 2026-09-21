@@ -31,6 +31,7 @@ height:78px;
 background:#fff;
 position:relative;
 }
+
 .app-header-title{
 position:absolute;
 left:50%;
@@ -41,12 +42,14 @@ font-size:21px;
 font-weight:700;
 white-space:nowrap;
 }
+
 .app-menu-wrap{
 position:absolute;
 left:0;
 top:8px;
 z-index:10;
 }
+
 .app-menu-button{
 width:58px;
 height:62px;
@@ -58,6 +61,7 @@ flex-direction:column;
 align-items:center;
 justify-content:center;
 }
+
 .app-menu-icon{
 font-size:31px;
 line-height:29px;
@@ -106,9 +110,7 @@ position:relative;
 position:absolute;
 left:0;
 top:70px;
-width:250px;
-max-height:70vh;
-overflow-y:auto;
+width:220px;
 background:#1a1a1a;
 border:1px solid #333;
 border-radius:12px;
@@ -189,13 +191,6 @@ margin-top:6px;
 color:#888;
 font-size:13px;
 line-height:1.5;
-}
-.external-page{
-width:100%;
-height:calc(100vh - 78px);
-border:0;
-display:block;
-background:#111;
 }
 label{
 display:block;
@@ -391,6 +386,35 @@ to{
 transform:rotate(360deg);
 }
 }
+.external-tool-page{
+width:100%;
+}
+.external-tool-frame{
+width:100%;
+height:calc(100vh - 180px);
+min-height:600px;
+border:0;
+border-radius:14px;
+background:#111;
+display:block;
+}
+#externalMenuItems{
+width:100%;
+}
+#externalMenuItems button{
+width:100%;
+padding:12px;
+border:0;
+border-radius:8px;
+background:transparent;
+color:#fff;
+text-align:left;
+font-size:14px;
+cursor:pointer;
+}
+#externalMenuItems button:hover{
+background:#292929;
+}
 @media(max-width:650px){
 .tool-grid{
 grid-template-columns:1fr;
@@ -455,7 +479,7 @@ Minecraft Bedrock Addon Tools
 <h2>
 機能一覧
 </h2>
-<div class="tool-grid" id="toolGrid">
+<div class="tool-grid">
 <button class="tool-card" onclick="openPage('manifest')">
 <div class="tool-icon">
 📄
@@ -478,6 +502,7 @@ MC Pack Builder
 ZIPからmcpack / mcaddonを自動生成
 </div>
 </button>
+<div id="externalToolCards"></div>
 </div>
 </div>
 </div>
@@ -658,22 +683,15 @@ RPまたはBPのZIPを選択してください。
 </div>
 
 <script>
-const GITHUB_OWNER="Hiro-addon";
-const GITHUB_REPO="Hiro-Addon-Tools";
-const GITHUB_TOOLS_PATH="tools";
-
 const menuButton=document.getElementById("menuButton");
 const menu=document.getElementById("menu");
 const pageLoader=document.getElementById("pageLoader");
-const toolGrid=document.getElementById("toolGrid");
-const externalMenuItems=document.getElementById("externalMenuItems");
-
-let externalTools=[];
-let pageLoading=false;
 
 menuButton.onclick=()=>{
 menu.classList.toggle("active");
 };
+
+let pageLoading=false;
 
 function resetPageData(page){
 if(page==="manifest"){
@@ -722,7 +740,7 @@ menu.classList.remove("active");
 return;
 }
 
-if(current && !current.classList.contains("external-page-wrapper")){
+if(current){
 resetPageData(current.id);
 }
 
@@ -735,11 +753,7 @@ document.querySelectorAll(".page").forEach(p=>{
 p.classList.remove("active");
 });
 
-const target=document.getElementById(page);
-
-if(target){
-target.classList.add("active");
-}
+document.getElementById(page).classList.add("active");
 
 window.scrollTo({
 top:0,
@@ -763,132 +777,6 @@ if(!e.target.closest(".menu-wrap")){
 menu.classList.remove("active");
 }
 });
-
-function createExternalTool(tool){
-const page=document.createElement("div");
-
-page.className="page external-page-wrapper";
-page.id=tool.id;
-
-const frame=document.createElement("iframe");
-
-frame.className="external-page";
-frame.src=tool.url;
-frame.setAttribute("allow","fullscreen");
-frame.setAttribute("loading","lazy");
-
-page.appendChild(frame);
-
-document.querySelector(".container").appendChild(page);
-
-const menuButton=document.createElement("button");
-
-menuButton.textContent=tool.name;
-menuButton.onclick=()=>{
-openPage(tool.id);
-};
-
-externalMenuItems.appendChild(menuButton);
-
-const card=document.createElement("button");
-
-card.className="tool-card";
-card.onclick=()=>{
-openPage(tool.id);
-};
-
-card.innerHTML=`
-<div class="tool-icon">
-${tool.icon}
-</div>
-<div class="tool-name">
-${escapeHtml(tool.name)}
-</div>
-<div class="tool-description">
-${escapeHtml(tool.description)}
-</div>
-`;
-
-toolGrid.appendChild(card);
-}
-
-function escapeHtml(value){
-return String(value)
-.replace(/&/g,"&amp;")
-.replace(/</g,"&lt;")
-.replace(/>/g,"&gt;")
-.replace(/"/g,"&quot;")
-.replace(/'/g,"&#039;");
-}
-
-function getToolName(file){
-return file
-.replace(/\.html?$/i,"")
-.replace(/[-_]+/g," ")
-.replace(/\b\w/g,char=>char.toUpperCase());
-}
-
-async function loadExternalTools(){
-try{
-
-const apiUrl=
-"https://api.github.com/repos/"+
-GITHUB_OWNER+
-"/"+
-GITHUB_REPO+
-"/contents/"+
-GITHUB_TOOLS_PATH;
-
-const response=
-await fetch(apiUrl,{
-cache:"no-store"
-});
-
-if(!response.ok){
-throw new Error("GitHub API error");
-}
-
-const files=
-await response.json();
-
-if(!Array.isArray(files)){
-return;
-}
-
-const htmlFiles=
-files.filter(file=>
-file.type==="file" &&
-/\.html?$/i.test(file.name)
-);
-
-for(const file of htmlFiles){
-
-const id=
-"external_"+file.name
-.replace(/[^a-zA-Z0-9_-]/g,"_");
-
-const tool={
-id:id,
-name:getToolName(file.name),
-description:"GitHubから読み込まれたツール",
-icon:"🛠️",
-url:file.download_url
-};
-
-externalTools.push(tool);
-createExternalTool(tool);
-
-}
-
-}catch(error){
-
-console.log(
-"外部ツールの読み込みに失敗しました。",
-error
-);
-
-}
-}
 
 let packType="bp";
 let useScript=false;
@@ -1157,7 +1045,7 @@ min_engine_version:versionArray(engine)
 },
 modules:[
 {
-description:"Resources",
+description:description,
 type:"resources",
 uuid:rpModuleUuid,
 version:versionArray(version)
@@ -1183,10 +1071,10 @@ document.createElement("div");
 
 box.className="result-box";
 
-const titleBar=
+const header=
 document.createElement("div");
 
-titleBar.className="result-title";
+header.className="result-title";
 
 const titleText=
 document.createElement("span");
@@ -1199,21 +1087,10 @@ document.createElement("button");
 copy.className="copy-btn";
 copy.textContent="コピー";
 
-const pre=
-document.createElement("pre");
-
-const text=
-JSON.stringify(
-data,
-null,
-2
-);
-
-pre.textContent=text;
-
 copy.onclick=async()=>{
-await navigator.clipboard.writeText(text);
-
+await navigator.clipboard.writeText(
+JSON.stringify(data,null,2)
+);
 copy.textContent="コピーしました";
 
 setTimeout(()=>{
@@ -1221,10 +1098,16 @@ copy.textContent="コピー";
 },1500);
 };
 
-titleBar.appendChild(titleText);
-titleBar.appendChild(copy);
+header.appendChild(titleText);
+header.appendChild(copy);
 
-box.appendChild(titleBar);
+const pre=
+document.createElement("pre");
+
+pre.textContent=
+JSON.stringify(data,null,2);
+
+box.appendChild(header);
 box.appendChild(pre);
 
 return box;
@@ -1237,7 +1120,7 @@ document.getElementById(
 const name=
 getValue(
 "name",
-"アドオン名"
+"Addon"
 );
 
 const description=
@@ -1978,7 +1861,103 @@ generatePack.disabled=false;
 
 updateButton();
 
+const GITHUB_OWNER="Hiro-addon";
+const GITHUB_REPO="mcaddon-mcpack-maker";
+const GITHUB_API="https://api.github.com/repos/"+GITHUB_OWNER+"/"+GITHUB_REPO+"/contents/";
+
+const externalTools=[];
+
+function escapeExternalHtml(value){
+return String(value).replace(/[&<>'"]/g,char=>({
+"&":"&amp;",
+"<":"&lt;",
+">":"&gt;",
+"'":"&#39;",
+"\"":"&quot;"
+}[char]));
+}
+
+function createExternalTool(tool){
+const menuItem=document.createElement("button");
+menuItem.textContent=tool.name;
+menuItem.onclick=()=>openPage(tool.id);
+document.getElementById("externalMenuItems").appendChild(menuItem);
+
+const card=document.createElement("button");
+card.className="tool-card";
+card.type="button";
+card.onclick=()=>openPage(tool.id);
+card.innerHTML=`
+<div class="tool-icon">${escapeExternalHtml(tool.icon)}</div>
+<div class="tool-name">${escapeExternalHtml(tool.name)}</div>
+<div class="tool-description">${escapeExternalHtml(tool.description)}</div>
+`;
+document.getElementById("externalToolCards").appendChild(card);
+
+const page=document.createElement("div");
+page.className="page external-tool-page";
+page.id=tool.id;
+page.innerHTML=`
+<div class="header">
+<div class="header-left">
+<button class="back" onclick="openPage('home')">
+←
+</button>
+<h1>${escapeExternalHtml(tool.name)}</h1>
+</div>
+</div>
+<div class="subtitle">${escapeExternalHtml(tool.description)}</div>
+<iframe class="external-tool-frame" title="${escapeExternalHtml(tool.name)}"></iframe>
+`;
+
+const frame=page.querySelector("iframe");
+frame.src=tool.url;
+
+document.querySelector(".container").appendChild(page);
+}
+
+async function loadExternalTools(){
+try{
+const response=await fetch(GITHUB_API+"?v="+Date.now(),{
+cache:"no-store",
+headers:{
+"Accept":"application/vnd.github+json"
+}
+});
+
+if(!response.ok)return;
+
+const files=await response.json();
+if(!Array.isArray(files))return;
+
+const htmlFiles=files.filter(file=>
+file.type==="file"&&
+/\.html?$/i.test(file.name)&&
+file.name.toLowerCase()!=="index.html"
+);
+
+for(const file of htmlFiles){
+const name=file.name.replace(/\.html?$/i,"");
+const id="external_"+file.name.replace(/[^a-zA-Z0-9_-]/g,"_");
+
+if(document.getElementById(id))continue;
+
+const tool={
+id:id,
+name:name,
+description:"Minecraft Bedrock Addon Tool",
+icon:"🛠️",
+url:new URL(file.name,location.href).href
+};
+
+externalTools.push(tool);
+createExternalTool(tool);
+}
+}catch(e){}
+}
+
 loadExternalTools();
+
 </script>
 </body>
 </html>
