@@ -814,7 +814,6 @@ const a=document.createElement("a");
 
 a.href=url;
 a.download=name;
-a.target="_blank";
 
 document.body.appendChild(a);
 
@@ -827,6 +826,7 @@ URL.revokeObjectURL(url);
 },1000);
 
 }
+
 async function mcEditorDownloadSelectedFile(){
 
 if(!mcEditorZip||!mcEditorSelectedPath)return;
@@ -843,12 +843,30 @@ mcEditorBaseName(mcEditorSelectedPath)
 );
 
 }
-async function mcEditorMakeZip(){if(!mcEditorZip)return null;mcEditorRemoveUnnecessaryFiles();return await mcEditorZip.generateAsync({type:"blob",compression:"DEFLATE",compressionOptions:{level:6}});}
+
+async function mcEditorMakeZip(){
+
+if(!mcEditorZip)return null;
+
+mcEditorRemoveUnnecessaryFiles();
+
+return await mcEditorZip.generateAsync({
+type:"blob",
+compression:"DEFLATE",
+compressionOptions:{
+level:6
+}
+});
+
+}
+
 async function mcEditorDownloadZip(){
 
 if(!mcEditorZip)return;
 
 const blob=await mcEditorMakeZip();
+
+if(!blob)return;
 
 await mcEditorDownloadBlob(
 blob,
@@ -859,11 +877,14 @@ mcEditorOutputName.replace(
 );
 
 }
+
 async function mcEditorDownloadMcPack(){
 
 if(!mcEditorZip)return;
 
 const blob=await mcEditorMakeZip();
+
+if(!blob)return;
 
 let name=mcEditorOutputName.replace(
 /\.(mcaddon|mcpack|zip)$/i,
