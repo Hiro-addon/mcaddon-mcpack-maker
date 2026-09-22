@@ -808,39 +808,209 @@ mcEditorZip=null;mcEditorFileTree.innerHTML=`<div class="editor-empty">ファイ
 }
 }
 async function mcEditorDownloadBlob(blob,name){
+
 const url=URL.createObjectURL(blob);
+
 const a=document.createElement("a");
+
 a.href=url;
 a.download=name;
+
 document.body.appendChild(a);
+
 a.click();
+
 a.remove();
 
 setTimeout(()=>{
+
 URL.revokeObjectURL(url);
+
 },1000);
+
 }
-async function mcEditorDownloadSelectedFile(){if(!mcEditorZip||!mcEditorSelectedPath)return;const entry=mcEditorZip.file(mcEditorSelectedPath);if(!entry)return;await mcEditorDownloadBlob(await entry.async("blob"),mcEditorBaseName(mcEditorSelectedPath));}
+async function mcEditorDownloadSelectedFile(){
+
+if(!mcEditorZip||!mcEditorSelectedPath)return;
+
+const entry=mcEditorZip.file(mcEditorSelectedPath);
+
+if(!entry)return;
+
+const data=await entry.async("blob");
+
+await mcEditorDownloadBlob(
+data,
+mcEditorBaseName(mcEditorSelectedPath)
+);
+
+}
 async function mcEditorMakeZip(){if(!mcEditorZip)return null;mcEditorRemoveUnnecessaryFiles();return await mcEditorZip.generateAsync({type:"blob",compression:"DEFLATE",compressionOptions:{level:6}});}
-async function mcEditorDownloadZip(){if(!mcEditorZip)return;const blob=await mcEditorMakeZip();await mcEditorDownloadBlob(blob,mcEditorOutputName.replace(/\.(mcaddon|mcpack|zip)$/i,"")+".zip");}
-async function mcEditorDownloadMcPack(){if(!mcEditorZip)return;const blob=await mcEditorMakeZip();let name=mcEditorOutputName.replace(/\.(mcaddon|mcpack|zip)$/i,"");if(!name)name="edited";await mcEditorDownloadBlob(blob,name+(mcEditorAddonDetected?".mcaddon":".mcpack"));}
-mcEditorFileInput.addEventListener("change",mcEditorReadPack);
-mcEditorMoveButton.onclick=()=>{if(!mcEditorSelectedPath)return;mcEditorMoveModePath=mcEditorSelectedPath;mcEditorMoveTargetFolder=mcEditorDirectoryName(mcEditorSelectedPath);mcEditorRenderTree();};
-mcEditorRenameButton.onclick=()=>{mcEditorRenameSelected();};
-mcEditorDeleteButton.onclick=()=>{mcEditorDeleteSelected();};
-mcEditorNewFileButton.onclick=()=>{mcEditorCreateNewFile();};
-mcEditorNewJsonButton.onclick=()=>{mcEditorCreateNewJson();};
-mcEditorUploadButton.onclick=()=>{mcEditorNewFileInput.click();};
-mcEditorDeselectButton.onclick=()=>{mcEditorDeselect();};
-mcEditorNewFileInput.addEventListener("change",async()=>{if(mcEditorNewFileInput.files.length)await mcEditorUploadFiles([...mcEditorNewFileInput.files]);mcEditorNewFileInput.value="";});
-mcEditorFileDownloadButton.onclick=()=>{mcEditorDownloadSelectedFile();};
-mcEditorZipButton.onclick=()=>{mcEditorDownloadZip();};
-mcEditorMcpackButton.onclick=()=>{mcEditorDownloadMcPack();};
-document.addEventListener("keydown",async e=>{
-if(!mcEditorZip||!mcEditorSelectedPath)return;const tag=document.activeElement?.tagName?.toLowerCase();if(tag==="textarea"||tag==="input")return;
-if(e.key==="Delete"||e.key==="Backspace"){e.preventDefault();await mcEditorDeleteSelected();}
-});
-window.addEventListener("beforeunload",()=>{mcEditorClearImageUrl();});
+async function mcEditorDownloadZip(){
+
+if(!mcEditorZip)return;
+
+const blob=await mcEditorMakeZip();
+
+await mcEditorDownloadBlob(
+blob,
+mcEditorOutputName.replace(
+/\.(mcaddon|mcpack|zip)$/i,
+""
+)+".zip"
+);
+
+}
+async function mcEditorDownloadMcPack(){
+
+if(!mcEditorZip)return;
+
+const blob=await mcEditorMakeZip();
+
+let name=mcEditorOutputName.replace(
+/\.(mcaddon|mcpack|zip)$/i,
+""
+);
+
+if(!name){
+
+name="edited";
+
+}
+
+await mcEditorDownloadBlob(
+blob,
+name+(mcEditorAddonDetected?".mcaddon":".mcpack")
+);
+
+}
+
+mcEditorFileInput.addEventListener(
+"change",
+mcEditorReadPack
+);
+
+mcEditorMoveButton.onclick=()=>{
+
+if(!mcEditorSelectedPath)return;
+
+mcEditorMoveModePath=mcEditorSelectedPath;
+mcEditorMoveTargetFolder=
+mcEditorDirectoryName(mcEditorSelectedPath);
+
+mcEditorRenderTree();
+
+};
+
+mcEditorRenameButton.onclick=()=>{
+
+mcEditorRenameSelected();
+
+};
+
+mcEditorDeleteButton.onclick=()=>{
+
+mcEditorDeleteSelected();
+
+};
+
+mcEditorNewFileButton.onclick=()=>{
+
+mcEditorCreateNewFile();
+
+};
+
+mcEditorNewJsonButton.onclick=()=>{
+
+mcEditorCreateNewJson();
+
+};
+
+mcEditorUploadButton.onclick=()=>{
+
+mcEditorNewFileInput.click();
+
+};
+
+mcEditorDeselectButton.onclick=()=>{
+
+mcEditorDeselect();
+
+};
+
+mcEditorNewFileInput.addEventListener(
+"change",
+async()=>{
+
+if(mcEditorNewFileInput.files.length){
+
+await mcEditorUploadFiles(
+[...mcEditorNewFileInput.files]
+);
+
+}
+
+mcEditorNewFileInput.value="";
+
+}
+);
+
+mcEditorFileDownloadButton.onclick=()=>{
+
+mcEditorDownloadSelectedFile();
+
+};
+
+mcEditorZipButton.onclick=()=>{
+
+mcEditorDownloadZip();
+
+};
+
+mcEditorMcpackButton.onclick=()=>{
+
+mcEditorDownloadMcPack();
+
+};
+
+document.addEventListener(
+"keydown",
+async e=>{
+
+if(!mcEditorZip||!mcEditorSelectedPath)return;
+
+const tag=
+document.activeElement?.tagName?.toLowerCase();
+
+if(
+tag==="textarea"||
+tag==="input"
+)return;
+
+if(
+e.key==="Delete"||
+e.key==="Backspace"
+){
+
+e.preventDefault();
+
+await mcEditorDeleteSelected();
+
+}
+
+}
+);
+
+window.addEventListener(
+"beforeunload",
+()=>{
+
+mcEditorClearImageUrl();
+
+}
+);
+
 </script>
+
 </body>
 </html>
