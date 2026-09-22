@@ -572,7 +572,6 @@ let mcEditorImageState={scale:1,x:0,y:0};
 let mcEditorImageObjectUrl="";
 let mcEditorMoveModePath="";
 let mcEditorMoveTargetFolder="";
-
 function mcEditorNormalizePath(path){return String(path||"").replace(/\\/g,"/").replace(/^\/+/,"").replace(/\/+/g,"/").replace(/^\.\//,"");}
 function mcEditorBaseName(path){const p=mcEditorNormalizePath(path);return p.split("/").pop()||"";}
 function mcEditorDirectoryName(path){const p=mcEditorNormalizePath(path);const a=p.split("/");a.pop();return a.join("/");}
